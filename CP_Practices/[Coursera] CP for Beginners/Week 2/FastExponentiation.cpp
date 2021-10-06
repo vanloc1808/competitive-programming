@@ -1,6 +1,6 @@
 /**
  *    author:    vanloc1808
- *    created:   29-09-2021   14:29:18
+ *    created:   06-10-2021   20:44:23
 **/
 
 #include<bits/stdc++.h>
@@ -27,39 +27,32 @@ typedef pair<long long, long long> pll;
 #define pf push_front
 #define pof pop_front
 
-const double INF = 1e10;
-const double MOD = 1e9 + 7;
+const long long INF = 2e18;
+const long long MOD = 1000000007;
 const double PI = 3.14159;
 const double EPSILON = 1e-6;
 
-int solve() {
-    int n;
-    cin >> n;
-
-    vi a(n + 1);
-    vi sum;
-
-    sum.push_back(0);
-
-    for (int i = 1; i <= n; i++) {
-        cin >> a[i];
-
-        sum.push_back(a[i] + sum[i - 1]);
-        cout << sum[i] << " ";
+long long fastpow(long long a, long long n) {
+    if (n == 0) {
+        return 1LL;
     }
 
-    cout << "\n";
+    long long sqroot = fastpow(a, n / 2);
 
-    sum.erase(unique(sum.begin(),sum.end()),sum.end());
+    if (n % 2 == 0) {
+        return sqroot * sqroot;
+    } 
 
-    return sum.size();
+    return sqroot * sqroot * a;
+}
+
+int solve() {
+
 }
 
 int main()
 {
     fastio;
-    
-    cout << solve();
     
     return 0;
 }
