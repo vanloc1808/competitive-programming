@@ -1,6 +1,6 @@
 /**
  *    author:    vanloc1808
- *    created:   07-10-2021   06:21:17
+ *    created:   16-10-2021   06:36:09
 **/
 
 #include<bits/stdc++.h>
@@ -31,32 +31,47 @@ const long long INF = 2e18;
 const long long MOD = 1000000007;
 const double PI = 3.14159;
 const double EPSILON = 1e-6;
-const int N_MAX = 1000;
 
-double F[N_MAX + 1];
-
-void fibList() {
-    F[0] = 0;
-    F[1] = 1;
-
-    for (int i = 2; i <= N_MAX; i++) {
-        F[i] = F[i - 1] + F[i - 2];
+long long findGCD(long long a, long long b) {
+    if (a < b) {
+        long long temp = a;
+        a = b;
+        b = temp;
     }
+
+    if (b == 0) {
+        return a;
+    }
+
+    if (a % b == 0) {
+        return b;
+    }
+
+    return findGCD(b, a % b);
 }
 
-int solve() {
-    return 0;
+long long solve() {
+    long long a, b;
+    cin >> a >> b;
+
+    double product = 1.00 * a * b;
+
+    double lcm = product / (1.00 * findGCD(a, b));
+
+    //cout << findGCD(a, b) << "\n";
+
+    if (lcm < pow(10, 18)) {
+        return lcm;
+    }
+
+    return -1;
 }
 
 int main()
 {
     fastio;
     
-    fibList();
-
-    for (int i = 0; i <= N_MAX; i++) {
-        cout << F[i] << "\n";
-    }
+    cout << solve() << "\n";
     
     return 0;
 }
