@@ -1,9 +1,7 @@
 /**
  *    author:    vanloc1808
- *    created:   20-12-2021   22:11:52
+ *    created:   21-12-2021   09:31:10
 **/
-
-//WRONG ANSWER ON TEST 2
 
 #include<bits/stdc++.h>
 
@@ -35,49 +33,56 @@ const double PI = 3.14159;
 const double EPSILON = 1e-6;
 
 string solve() {
-    string a, s; 
+    long long a, s;
     cin >> a >> s;
 
-    int ptr = 0;
     string b = "";
-    reverse(a.begin(), a.end()); 
-    reverse(s.begin(), s.end()); 
-    bool check = true;
-    for (int i = 0; i < a.length(); i++){
-        if (ptr == s.length()) {
-            check = false;
-            break;
-        }
-        if (a[i] <= s[ptr]){
-            b += (char)(s[ptr] - a[i] + '0');
-            ptr++;
-        }
-        else {
-            if (ptr + 1 == s.length() || s[ptr + 1] > '1'){
-                check = false;
-                break;
-            }
-            int x = (s[ptr + 1] - '0') * 10 + (s[ptr] - '0');
-            ptr += 2;
-            b += (char)(x - (a[i] - '0') + '0');
+
+    while (s > 0) {
+        long long amod = a % 10;
+        long long smod = s % 10;
+        long long bmod = (smod - amod + 10) % 10;
+
+        b = to_string(bmod) + b;
+        if (amod + bmod == smod) {
+            a /= 10;
+            s /= 10;
+        } else if (amod + bmod == s % 100) {
+            a /= 10;
+            s /= 100;
+        } else {
+            return "-1";
         }
     }
-    while (ptr < s.length()) b += s[ptr++];
-    while (b.length() && b.back() == '0') b.pop_back();
-    reverse(b.begin(), b.end());
-    if (b.length() == 0 || !check){
+
+    if (a > 0) {
         return "-1";
     }
-    return b;
-}
 
+    string ans = "";
+    
+    int i = 0;
+    while (b[i] == '0') {
+        i++;
+    }
+
+    for (int j = i; j < b.length(); j++) {
+        ans += b[j];
+    }
+
+    return ans;
+}
 
 int main()
 {
     fastio;
-    int T; cin >> T;
-    while (T--){
+    
+    int t;
+    cin >> t;
+
+    while (t--) {
         cout << solve() << "\n";
     }
+    
     return 0;
 }
