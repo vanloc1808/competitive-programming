@@ -4,6 +4,7 @@
 #include <array>
 #include <vector>
 #include <iterator>
+#include <cassert>
 
 using namespace std;
 
@@ -82,9 +83,9 @@ array<int, 5> a4{}; // a4 = [0, 0, 0, 0, 0]
 
 
 
-/*
+/**************************************************
     Should we initialize by {} in C++ 11 or later?
-*/
+*************************************************/
 
 char c{'c'}; 
 
@@ -93,3 +94,32 @@ char d{'c' + 1}; // warning or compile error, depends on compiler flags
 auto i = {188}; // i is initializer_list<int>, not an int
 
 auto i {209}; // i is an int
+
+
+
+/*
+    const & pointer
+*/
+
+char c1 = 'a';
+char c2 = 'b';
+
+const char* p1 = &c1;
+// invalid *p1 = c2;
+p1 = &c2; // OK
+
+char* const p2 = &c1;
+*p2 = c2;
+// invalid p2 = &c2;
+
+char const* p3 = &c1;
+p3 = &c2;
+// invalid *p3 = c2;
+
+const char* const p4 = &c1;
+// invalid p4 = &c2;
+// invalid *p4 = c2;
+
+char const* const p5 = &c1;
+// invalid p5 = &c2;
+// invalid *p5 = c2;
